@@ -23,7 +23,7 @@ export type Transaction = {
   category: string;
   accountName: string;
   recurring: boolean;
-  recurringPeriod: "Daily" | "Weekly" | "Monthly" | "Yearly"; 
+  recurringPeriod?: "Daily" | "Weekly" | "Monthly" | "Yearly"; 
   createdBy: string;  
   type: "income" | "expense";
 };

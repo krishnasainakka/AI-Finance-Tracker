@@ -10,7 +10,7 @@ export type TransactionItem = {
   accountId: string;
   accountName: string;
   recurring: boolean;
-  recurringPeriod: 'Daily' | 'Weekly' | 'Monthly' | 'Yearly';
+  recurringPeriod?: 'Daily' | 'Weekly' | 'Monthly' | 'Yearly';
   originalRecurringId?: string;
   date: string;
   createdBy: string;
