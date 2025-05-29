@@ -5,8 +5,9 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
+import { format } from "date-fns";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 
 interface AddIncomeProps {
   userId: string;
@@ -34,6 +35,7 @@ const AddIncome: React.FC<AddIncomeProps> = ({ userId, incomeTypes, refreshTrans
   const [recurringPeriod, setRecurringPeriod] = useState<string>("");
   const [incomeTypeId, setIncomeTypeId] = useState("");
   const [accounts, setAccounts] = useState<Account[]>([]);  
+  const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -172,18 +174,28 @@ const AddIncome: React.FC<AddIncomeProps> = ({ userId, incomeTypes, refreshTrans
     </div>
 
     {/* Date Picker */}
-    <div className="mt-4">
-          <Label className="text-black font-medium mb-1 block">Date</Label>
-          <DayPickerInput
-            value={date}
-            onDayChange={setDate}
+    <div className="mt-4 relative">
+          <label className="text-black font-medium mb-1 block">Date</label>
+          <input
+            type="text"
+            readOnly
+            value={date ? format(date, "PPP") : ""}
+            onClick={() => setShowPicker((prev) => !prev)}
             placeholder="Pick a date"
-            format="PPP"
-            inputProps={{
-              className:
-                "w-full border border-gray-300 rounded-md py-2 px-3 text-left font-normal",
-            }}
+            className="w-full border border-gray-300 rounded-md py-2 px-3 text-left font-normal cursor-pointer"
           />
+          {showPicker && (
+            <div className="absolute z-50 bg-white shadow-lg mt-2 rounded-md">
+              <DayPicker
+                mode="single"
+                selected={date}
+                onSelect={(selected) => {
+                  setDate(selected);
+                  setShowPicker(false);
+                }}
+              />
+            </div>
+          )}
         </div>
 
     {/* Recurring Switch */}
