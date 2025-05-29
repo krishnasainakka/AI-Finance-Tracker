@@ -13,7 +13,7 @@ import { format } from "date-fns";
 
 
 interface AddExpenseProps {
-  userId: string;
+  userId: string| undefined;
   refreshData: () => void;
 }
 

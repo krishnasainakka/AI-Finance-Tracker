@@ -36,7 +36,7 @@ type Budget = {
 const AddExpense: React.FC<AddExpenseProps> = ({ budgetId, userId, refreshData }) => {
   const [name, setName] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
+  // const [category, setCategory] = useState<string>("");
   const [date, setDate] = useState<Date | undefined>();
   const [accountId, setAccountId] = useState<string>("");
   const [accountName, setAccountName] = useState<string>("");
@@ -100,7 +100,7 @@ const AddExpense: React.FC<AddExpenseProps> = ({ budgetId, userId, refreshData }
         toast("New Expense Added!");
         setName("");
         setAmount("");
-        setCategory("");
+        // setCategory("");
         setAccountId("");
         setAccountName("");
         setDate(undefined);

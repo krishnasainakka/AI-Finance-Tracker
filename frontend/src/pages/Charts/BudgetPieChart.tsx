@@ -82,7 +82,7 @@ export function BudgetPieChart({ budgetsList }: BudgetPieChartProps) {
             outerRadius={90}
             paddingAngle={2}
           >
-            {budgetsList.map((item, index) => (
+            {budgetsList.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
