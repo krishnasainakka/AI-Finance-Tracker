@@ -65,7 +65,7 @@ const AnimatedCard = ({ icon, title, description }: { icon: React.ReactNode, tit
           if (data.length > 0) {
             navigate('/dashboard');
           } else {
-            navigate('/dashboard/account');
+            navigate('/dashboard/accounts');
           }
         } catch (error) {
           console.error('Error fetching budget data:', error);
