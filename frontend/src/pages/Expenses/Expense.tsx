@@ -39,8 +39,16 @@ type ExpenseItem = {
   _id: string;
   name: string;
   amount: number;
+  accountId: string;
+  accountName: string;
+  recurring: boolean;
+  recurringPeriod?: 'Daily' | 'Weekly' | 'Monthly' | 'Yearly';
+  originalRecurringId?: string;
+  date: string;
   createdBy: string;
-  createdAt?: string;
+  type: 'income' | 'expense';  
+  budgetId?: string;
+  category: string;
 };
 
 const Expense: React.FC = () => {
@@ -93,7 +101,7 @@ const Expense: React.FC = () => {
 
   const deleteBudget = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/budget/deleteBudget/${user.id}/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/budget/deleteBudget/${user?.id}/${id}`, {
         method: "DELETE",
       });
 
@@ -116,7 +124,9 @@ const Expense: React.FC = () => {
         <ArrowLeft onClick={() => navigate(-1)} className="cursor-pointer" />
         My Expenses
         <div className="flex gap-2 items-center ">
-          <EditBudget budgetInfo={budgetInfo} refreshData={() => getBudgetInfo()} />
+          {budgetInfo && (
+            <EditBudget budgetInfo={budgetInfo} refreshData={getBudgetInfo} />
+          )}
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <span>
@@ -163,7 +173,7 @@ const Expense: React.FC = () => {
 
       <motion.div className="mt-4" initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}>
         <h2 className="font-bold text-lg">Latest Expenses</h2>
-        <DemoPage expenseList={expenseList} accountList={accountsData} categoryList={allBudgetsInfo.map(b => ({ id: b._id, name: b.budgetName }))} refreshData={getBudgetInfo} filters={["account", "recurring"]}/>
+        <DemoPage expenseList={expenseList} accountList={accountsData} categoryList={allBudgetsInfo.map(b => ({ id: b._id, name: b.budgetname }))} refreshData={getBudgetInfo} filters={["account", "recurring"]}/>
       </motion.div>
     </motion.div>
   );

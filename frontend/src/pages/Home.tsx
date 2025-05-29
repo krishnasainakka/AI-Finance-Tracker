@@ -57,7 +57,7 @@ const AnimatedCard = ({ icon, title, description }: { icon: React.ReactNode, tit
   useEffect(() => {
       const checkAccountAndRedirect = async () => {
         try {
-          const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/account/getaccount/${user.id}`);
+          const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/account/getaccount/${user?.id}`);
           // console.log(response);
           // console.log(user.id);
           const data = await response.json();

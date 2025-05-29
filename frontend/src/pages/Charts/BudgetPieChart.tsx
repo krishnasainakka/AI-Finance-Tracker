@@ -11,9 +11,13 @@ import {
 } from "@/components/ui/card"
 
 interface BudgetItem {
-  budgetname: string
-  amount: number               // Total budget for the budgetname
-  totalSpentThisMonth: number // Actual spent amount
+  _id: string;
+  icon: string;
+  budgetname: string;
+  amount: number;
+  category: string;
+  totalSpentThisMonth: number;
+  expenseCountThisMonth: number;
 }
 
 interface BudgetPieChartProps {
@@ -78,7 +82,7 @@ export function BudgetPieChart({ budgetsList }: BudgetPieChartProps) {
             outerRadius={90}
             paddingAngle={2}
           >
-            {budgetsList.map((entry, index) => (
+            {budgetsList.map((item, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}

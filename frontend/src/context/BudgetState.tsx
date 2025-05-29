@@ -10,20 +10,37 @@ type Account = {
   createdAt?: string;
 };
 
-export type MonthlyTransaction = {
-  amount: number;
-  category: string;
-  date: string;
-  type: "Income" | "Expense";
-};
+// type MonthlyTransaction = {
+//   amount: number;
+//   category: string;
+//   date: string;
+//   type: "Income" | "Expense";
+// };
 
 type BudgetInfo = {
   _id: string;
-  budgetName: string;
   icon: string;
-  maxBudget: number;
-  totalSpent: number;
-  expenseCount: number;
+  budgetname: string;
+  amount: number;
+  category: string;
+  totalSpentThisMonth: number;
+  expenseCountThisMonth: number;
+};
+
+export type TransactionItem = {
+  _id: string;
+  name: string;
+  amount: number;
+  accountId: string;
+  accountName: string;
+  recurring: boolean;
+  recurringPeriod?: 'Daily' | 'Weekly' | 'Monthly' | 'Yearly';
+  originalRecurringId?: string;
+  date: string;
+  createdBy: string;
+  type: 'income' | 'expense';  
+  budgetId?: string;
+  category: string;
 };
 
 export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -33,7 +50,7 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [allBudgetsInfo, setAllBudgetsInfo] = useState<BudgetInfo[]>([]);
   const [income, setIncome] = useState<number>(0);
   const [expense, setExpense] = useState<number>(0);
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState<TransactionItem[]>([]);
 
   const incomeTypes = [
       { id: 'salary', name: 'Salary' },
@@ -72,8 +89,8 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     try {
       const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/transactions/user/${user?.id}`);
       const data = await res.json();
-      setIncome(data.incomes.reduce((sum, item) => sum + item.amount, 0));
-      setExpense(data.expenses.reduce((sum, item) => sum + item.amount, 0));
+      setIncome(data.incomes.reduce((sum: number, item: { amount: number }) => sum + item.amount, 0));
+      setExpense(data.expenses.reduce((sum: number, item: { amount: number }) => sum + item.amount, 0));
       const allTransactions = [...data.incomes, ...data.expenses];
       setTransactions(allTransactions);
     } catch (err) {

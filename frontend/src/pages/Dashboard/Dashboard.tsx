@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { motion } from 'framer-motion';
 

@@ -11,10 +11,16 @@ type IncomeItem = {
   _id: string;
   name: string;
   amount: number;
-  category: string;
-  accountName: string; 
+  accountId: string;
+  accountName: string;
+  recurring: boolean;
+  recurringPeriod?: 'Daily' | 'Weekly' | 'Monthly' | 'Yearly';
+  originalRecurringId?: string;
+  date: string;
   createdBy: string;
-  createdAt?: string;
+  type: 'income' | 'expense';  
+  budgetId?: string;
+  category: string;
 };
 
 const Income: React.FC = () => {

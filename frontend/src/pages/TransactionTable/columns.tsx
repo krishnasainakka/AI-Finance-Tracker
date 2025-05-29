@@ -105,7 +105,7 @@ export const getColumns = (refreshData: () => void): ColumnDef<Transaction>[] =>
     accessorKey: "category",
     header: "Category",
     cell: ({ row }) => {
-      const value = row.getValue("category");
+      const value = row.getValue("category") as string;
       return (
         <div className="inline-block rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-800 capitalize">
           {value}
@@ -113,6 +113,7 @@ export const getColumns = (refreshData: () => void): ColumnDef<Transaction>[] =>
       );
     },
   },
+
   {
     accessorKey: "amount",
     header: ({ column }) => {

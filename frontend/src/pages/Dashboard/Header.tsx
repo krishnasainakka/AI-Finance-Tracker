@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ setSidebarOpen }) => {
                 <DialogTitle>Add New Expense</DialogTitle>
                 <DialogClose className="text-gray-500 hover:text-gray-700" />
               </DialogHeader>
-              <AIAddExpense userId={user.id} refreshData={refreshTransactions} />
+              <AIAddExpense userId={user?.id} refreshData={refreshTransactions} />
             </DialogContent>
           </Dialog>
         )}

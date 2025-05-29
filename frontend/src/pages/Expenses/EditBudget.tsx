@@ -55,7 +55,7 @@ const EditBudget: React.FC<EditBudgetProps> = ({ budgetInfo, refreshData }) => {
 
     const onUpdateBudget = async () => {
         try {
-            const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/budget/updateBudget/${user.id}/${id}`, {
+            const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/budget/updateBudget/${user?.id}/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
