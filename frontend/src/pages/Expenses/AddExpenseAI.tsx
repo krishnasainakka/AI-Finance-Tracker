@@ -87,13 +87,16 @@ const AddExpenseAI: React.FC<AddExpenseProps> = ({ userId, refreshData }) => {
     formData.append("budgets", JSON.stringify(budgets)); // send budgets here as string
 
     try {
+        const headers: HeadersInit = {};
+
+        if (userId) {
+          headers["user-id"] = userId;
+        }
         const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/expense/scan-receipt`, {
-        method: "POST",
-        headers: {
-            "user-id": userId, // keep userId in headers
-            // DO NOT set 'Content-Type' here for FormData; browser will set multipart boundary automatically
-        },
-        body: formData,
+          method: "POST",
+          headers,
+          // Do NOT set 'Content-Type' for FormData
+          body: formData,
         });
 
         const data = await response.json();
