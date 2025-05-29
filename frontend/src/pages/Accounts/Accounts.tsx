@@ -1,8 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useUser } from '@clerk/clerk-react';
+import { useEffect, useState, useContext } from 'react';
 import { motion } from 'framer-motion';
-import { Pencil, Trash2 } from "lucide-react";
-
 import CreditCardSlider from '../Dashboard/CreditCardSlider';
 import DemoPage from '../TransactionTable/page';
 import BudgetContext from '@/context/BudgetContext';
@@ -16,28 +13,26 @@ import {
 import CreateAccount from './CreateAccount';
 
 const Accounts = () => {
-  const { user } = useUser();
-  const [selectedAccountId, setSelectedAccountId] = useState<string>();
   const ctx = useContext(BudgetContext);
+  const [selectedAccountId, setSelectedAccountId] = useState<string>();
+
+  // Always define useEffect, even if it doesn't do anything
+  useEffect(() => {
+    if (ctx && ctx.accountsData.length > 0 && !selectedAccountId) {
+      setSelectedAccountId(ctx.accountsData[0]._id);
+    }
+  }, [ctx, selectedAccountId]);
 
   if (!ctx) return <div>Loading...</div>;
 
-  const {
-    income,
-    expense,
+  const {    
     accountsData,
     allBudgetsInfo,
     transactions,
     incomeTypes,
     refreshTransactions,
     refreshAccounts
-  } = ctx;
-
-  useEffect(() => {
-    if (accountsData.length > 0 && !selectedAccountId) {
-      setSelectedAccountId(accountsData[0]._id);
-    }
-  }, [accountsData, selectedAccountId]);
+  } = ctx;  
 
   const filteredTransactions = selectedAccountId
     ? transactions.filter((tx) => tx.accountId === selectedAccountId)

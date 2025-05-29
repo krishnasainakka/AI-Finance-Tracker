@@ -25,11 +25,14 @@ import { motion } from "framer-motion";
 
 type BudgetInfo = {
   _id: string;
-  budgetName: string;
+  budgetname: string;
+  amount: number;
   icon: string;
-  maxBudget: number;
-  totalSpent: number;
-  expenseCount: number;
+  createdBy: string;
+  category: string;
+  // expensesThisMonth: Expense[];
+  totalSpentThisMonth: number;
+  expenseCountThisMonth: number;
 };
 
 type ExpenseItem = {
@@ -87,10 +90,6 @@ const Expense: React.FC = () => {
     }
   }, [user, id]);
 
-  useEffect(() => {
-    // Prevent scroll to table automatically
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
 
   const deleteBudget = async () => {
     try {

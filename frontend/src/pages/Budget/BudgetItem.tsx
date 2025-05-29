@@ -10,7 +10,17 @@ import {
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 
-const BudgetItem = ({ budget }) => {
+interface Budget {
+  _id: string;
+  icon: string;
+  budgetname: string;
+  amount: number;
+  category: string;
+  totalSpentThisMonth: number;
+  expenseCountThisMonth: number;
+}
+
+const BudgetItem = ({ budget }:{budget:Budget}) => {
   const navigate = useNavigate()
   if (!budget) return null
 

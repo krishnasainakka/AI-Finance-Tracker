@@ -12,7 +12,12 @@ import {
 import AIAddExpense from '../Expenses/AddExpenseAI';
 import BudgetContext from '@/context/BudgetContext';
 
-const Header = ({ setSidebarOpen }) => {
+
+interface HeaderProps {
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Header: React.FC<HeaderProps> = ({ setSidebarOpen }) => {
   const { user } = useUser();
   const { isSignedIn } = useUser();
   const [open, setOpen] = useState(false);

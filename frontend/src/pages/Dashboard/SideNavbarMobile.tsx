@@ -4,7 +4,12 @@ import { LayoutGrid, PiggyBank, ReceiptText } from 'lucide-react';
 import { UserButton } from '@clerk/clerk-react';
 import { Link, useLocation } from 'react-router-dom';
 
-const SideNavbarMobile = ({ open, setOpen }) => {
+interface SideNavbarMobileProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SideNavbarMobile: React.FC<SideNavbarMobileProps> = ({ open, setOpen }) => {
   const menuList = [
     { id: 1, name: 'Dashboard', icon: LayoutGrid, path: '/dashboard' },
     { id: 2, name: 'Budget & Expenses', icon: PiggyBank, path: '/dashboard/budget' },

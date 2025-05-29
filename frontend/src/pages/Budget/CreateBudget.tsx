@@ -24,14 +24,17 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { motion } from "framer-motion"
 
+type CreateBudgetProps = {
+  refreshData: () => void;
+};
 
-const CreateBudget = ({refreshData}) => {
+const CreateBudget: React.FC<CreateBudgetProps> = ({refreshData}) => {
   const { user } = useUser();
   const [emojiIcon, setEmojiIcon] = useState('😊');
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false)
 
-  const [name,setName] = useState();
-  const [amount,setAmount] = useState();
+  const [name,setName] = useState<string>('');
+  const [amount,setAmount] = useState<number>(0);
 
   const onCreateBudget = async () => {
     try {
@@ -125,7 +128,7 @@ const CreateBudget = ({refreshData}) => {
                 <Input
                   placeholder="e.g. 10000Rs"
                   type="number"
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={(e) => setAmount(Number(e.target.value))}
                 />
               </div>
             </div>

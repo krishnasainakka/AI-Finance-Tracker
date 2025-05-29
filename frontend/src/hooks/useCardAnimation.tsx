@@ -10,7 +10,7 @@ export function useCardAnimation(initialIndex: number, totalItems: number) {
     if (currentIndex >= totalItems) {
       setCurrentIndex(Math.max(totalItems - 1, 0));
     }
-  }, [totalItems]);
+  }, [currentIndex, totalItems]);
 
   const next = () => {
     if (isAnimating || currentIndex >= totalItems - 1) return;

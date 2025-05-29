@@ -2,21 +2,21 @@ import { createContext } from "react";
 
 type BudgetInfo = {
   _id: string;
-  budgetName: string;
+  budgetname: string;
   icon: string;
   maxBudget: number;
   totalSpent: number;
   expenseCount: number;
 };
 
-type ExpenseItem = {
-  _id: string;
-  name: string;
-  amount: number;
-  createdBy: string;
-  createdAt?: string;
-  type: string;
-};
+// type ExpenseItem = {
+//   _id: string;
+//   name: string;
+//   amount: number;
+//   createdBy: string;
+//   createdAt?: string;
+//   type: string;
+// };
 
 type Account = {
   _id: string;

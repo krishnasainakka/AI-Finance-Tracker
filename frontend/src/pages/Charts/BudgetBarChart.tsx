@@ -19,7 +19,41 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function BudgetBarChart({ budgetsList }) {
+
+interface Expense {
+  _id: string;
+  name: string;
+  amount: number;
+  budgetId: string;
+  category: string;
+  accountId: string;
+  accountName: string;
+  recurring: boolean;
+  recurringPeriod: string | null;
+  date: string;
+  createdBy: string;
+  type: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+interface BudgetItem {
+  _id: string;
+  budgetname: string;
+  amount: number;
+  icon: string;
+  createdBy: string;
+  expensesThisMonth: Expense[];
+  totalSpentThisMonth: number;
+  expenseCountThisMonth: number;
+}
+
+interface ChartInfoProps {
+  budgetsList: BudgetItem[];
+}
+
+const BudgetBarChart: React.FC<ChartInfoProps> = ({ budgetsList }) => {
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-IN", {
       style: "currency",
@@ -87,3 +121,5 @@ export default function BudgetBarChart({ budgetsList }) {
     </Card>
   );
 }
+
+export default BudgetBarChart

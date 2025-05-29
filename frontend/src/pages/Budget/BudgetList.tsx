@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import CreateBudget from './CreateBudget'
 import { useUser } from '@clerk/clerk-react';
 import BudgetItem from './BudgetItem';
@@ -9,7 +9,7 @@ const BudgetList = () => {
 
   const getBudgetList = async () => {
     try {
-      const userId = user.id;
+      const userId = user?.id;
       const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/budget/budgetSummary/${userId}`);
       const data = await res.json(); 
       console.log(data);
@@ -20,7 +20,9 @@ const BudgetList = () => {
   };
 
   useEffect(() => {
-    user&&getBudgetList();
+    if (user) {
+      getBudgetList();
+    }
   }, [user]);
 
   return (

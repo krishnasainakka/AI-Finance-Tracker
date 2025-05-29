@@ -11,7 +11,7 @@ import { format } from "date-fns";
 
 interface AddIncomeProps {
   userId: string;
-  incomeTypes: [];
+  incomeTypes: { id: string; name: string }[];
   refreshTransactions: () => void;
 }
 

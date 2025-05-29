@@ -3,7 +3,6 @@ import {
   TrendingDownIcon,
   WalletIcon,
   PiggyBankIcon,
-  ShoppingCartIcon,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -15,22 +14,56 @@ import {
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
-const CardInfo = ({ budgetsList }) => {
+interface Expense {
+  _id: string;
+  name: string;
+  amount: number;
+  budgetId: string;
+  category: string;
+  accountId: string;
+  accountName: string;
+  recurring: boolean;
+  recurringPeriod: string | null;
+  date: string;
+  createdBy: string;
+  type: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+interface BudgetItem {
+  _id: string;
+  budgetname: string;
+  amount: number;
+  icon: string;
+  createdBy: string;
+  expensesThisMonth: Expense[];
+  totalSpentThisMonth: number;
+  expenseCountThisMonth: number;
+}
+
+interface CardInfoProps {
+  budgetsList: BudgetItem[];
+}
+
+
+const CardInfo: React.FC<CardInfoProps> = ({ budgetsList }) => {
   // If no budgets, set default empty values
   const hasBudgets = budgetsList && budgetsList.length > 0;
 
   const totalBudget = hasBudgets
-    ? budgetsList.reduce((acc, item) => acc + item.amount, 0)
+    ? budgetsList.reduce((acc: number, item: BudgetItem) => acc + item.amount, 0)
     : 0;
 
   const totalSpent = hasBudgets
-    ? budgetsList.reduce((acc, item) => acc + item.totalSpentThisMonth, 0)
+    ? budgetsList.reduce((acc: number, item: BudgetItem) => acc + item.totalSpentThisMonth, 0)
     : 0;
 
   const remainingBudget = totalBudget - totalSpent;
 
   const topSpendingCategory = hasBudgets
-    ? budgetsList.reduce((top, item) => {
+    ? budgetsList.reduce((top: BudgetItem | null, item: BudgetItem) => {
         const currentRatio = item.totalSpentThisMonth / item.amount;
         const topRatio = top ? top.totalSpentThisMonth / top.amount : 0;
         return currentRatio > topRatio ? item : top;

@@ -11,7 +11,7 @@ interface DateRange {
   to?: Date;
 }
 
-const DashboardChartSection: React.FC<{ userId: string }> = ({ userId }) => {
+const DashboardChartSection: React.FC<{ userId: string|undefined }> = ({ userId }) => {
   const [chartData, setChartData] = useState<IncomeExpenseData[]>([]);
   const [dateRange, setDateRange] = useState<DateRange>({ from: undefined, to: undefined });
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext} from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Eye, Pencil, Trash } from "lucide-react";
+import { ChevronLeft, ChevronRight, Eye, Trash } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 
 import { useCardAnimation } from "../../hooks/useCardAnimation";

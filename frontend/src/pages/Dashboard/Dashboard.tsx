@@ -15,7 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BudgetPieChart } from '../Charts/BudgetPieChart';
-import BudgetBarChart from '../Charts/BudgetBarChart';
+// import BudgetBarChart from '../Charts/BudgetBarChart';
 
 
 const Dashboard = () => {
@@ -23,7 +23,18 @@ const Dashboard = () => {
   const [selectedAccountId, setSelectedAccountId] = useState<string>();
   const ctx = useContext(BudgetContext);
 
-  if (!ctx) return <div>Loading...</div>;
+   useEffect(() => {
+      if (!ctx) return;
+
+      const { accountsData } = ctx;
+      if (accountsData.length > 0 && !selectedAccountId) {
+        setSelectedAccountId(accountsData[0]._id);
+      }
+    }, [ctx, selectedAccountId]);
+
+    if (!ctx) {
+      return <div>Loading...</div>;
+    }
 
   const { income, expense, accountsData, allBudgetsInfo, transactions, incomeTypes, refreshTransactions } = ctx;
   const combinedCategories = [
@@ -31,11 +42,7 @@ const Dashboard = () => {
     ...incomeTypes
   ];
   console.log("combined",combinedCategories)
-  useEffect(() => {
-    if (accountsData.length > 0 && !selectedAccountId) {
-      setSelectedAccountId(accountsData[0]._id);
-    }
-  }, [accountsData, selectedAccountId]);
+  
 
   return (
     <motion.div
@@ -72,7 +79,7 @@ const Dashboard = () => {
             transition={{ delay: 0.4 }}
           >
             <h3 className="text-xl font-semibold mb-2">Expense & Income Charts</h3>
-            <DashboardChartSection userId={user.id} />
+            <DashboardChartSection userId={user?.id} />
           </motion.div>
 
           {/* Transactions */}

@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import BudgetContext from "@/context/BudgetContext";
-import html2pdf from "html2pdf.js";
-import html2canvas from "html2canvas";
+// import html2pdf from "html2pdf.js";
+// import html2canvas from "html2canvas";
 
 type Transaction = {
   category?: string;
@@ -55,23 +55,23 @@ const MonthlySummary = () => {
 
   const { getCurrentMonthTransactions } = ctx;
 
-  const handleDownloadPDF = () => {
-    const element = document.getElementById("summary-content");
-    if (!element) return;
-    html2pdf().from(element).save("Monthly_Summary.pdf");
-  };
+  // const handleDownloadPDF = () => {
+  //   const element = document.getElementById("summary-content");
+  //   if (!element) return;
+  //   html2pdf().from(element).save("Monthly_Summary.pdf");
+  // };
 
-  const handleTakeSnapshot = async () => {
-    console.log("snap shot")
-    const element = document.getElementById("summary-content");
-    if (!element) return;
+  // const handleTakeSnapshot = async () => {
+  //   console.log("snap shot")
+  //   const element = document.getElementById("summary-content");
+  //   if (!element) return;
 
-    const canvas = await html2canvas(element);
-    const link = document.createElement("a");
-    link.href = canvas.toDataURL("image/png");
-    link.download = "Monthly_Summary_Snapshot.png";
-    link.click();
-  };
+  //   const canvas = await html2canvas(element);
+  //   const link = document.createElement("a");
+  //   link.href = canvas.toDataURL("image/png");
+  //   link.download = "Monthly_Summary_Snapshot.png";
+  //   link.click();
+  // };
 
 
   const generateSummary = async () => {

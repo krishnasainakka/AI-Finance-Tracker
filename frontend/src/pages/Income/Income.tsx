@@ -27,7 +27,7 @@ const Income: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const { accountsData, incomeTypes, refreshTransactions } = ctx;  
+  const { accountsData, incomeTypes } = ctx;  
 
   const getIncomeList = async () => {
     if (!user?.id) return;

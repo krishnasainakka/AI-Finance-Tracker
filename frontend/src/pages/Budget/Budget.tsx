@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import CardInfo from './CardInfo';
 import BudgetList from './BudgetList';
-import { BudgetPieChart } from '../Charts/BudgetPieChart';
-import BudgetBarChart from '../Charts/BudgetBarChart';
 import MonthlySummary from '../Budget/AIMonthlySummary';
 import { motion } from 'framer-motion';
 
 const Budget = () => {
   const { user } = useUser();
   const [budgetsList, setBudgetsList] = useState([]);
-  const [selectedChart, setSelectedChart] = useState("pie");
+  // const [selectedChart, setSelectedChart] = useState("pie");
 
   const getBudgetList = async () => {
     try {
-      const userId = user.id;
+      const userId = user?.id;
       const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/budget/budgetSummary/${userId}`);
       const data = await res.json();
       setBudgetsList(data);
@@ -24,7 +22,9 @@ const Budget = () => {
   };
 
   useEffect(() => {
-    user && getBudgetList()
+    if (user) {
+      getBudgetList();
+    }
   }, [user]);
 
   const fadeUp = {

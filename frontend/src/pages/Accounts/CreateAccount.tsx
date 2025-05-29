@@ -1,12 +1,5 @@
-import React, { useState } from 'react';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
+import { useState } from 'react';
+import React from 'react';
 import {
   Dialog,
   DialogClose,
@@ -23,12 +16,15 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { motion } from "framer-motion"
 
+type CreateAccountProps = {
+  refreshAccounts: () => void;
+};
 
-const CreateAccount = ({refreshAccounts}) => {
+const CreateAccount: React.FC<CreateAccountProps> = ({ refreshAccounts }) => {
   const { user } = useUser();
 
-  const [accountName,setAccountName] = useState();
-  const [balance,setBalance] = useState();
+  const [accountName,setAccountName] = useState<string>('');
+  const [balance,setBalance] = useState<number>(0);
 
   const onCreateAccount = async () => {
     try {
@@ -100,7 +96,7 @@ const CreateAccount = ({refreshAccounts}) => {
                   <h2 className='text-black font-medium my-1'>Initial Balance</h2>
                   <Input placeholder='e.g. 10000Rs'
                   type='number'
-                  onChange={(e)=>setBalance(e.target.value)}/>
+                  onChange={(e)=>setBalance(Number(e.target.value))}/>
                 </div>                
               </div>
               

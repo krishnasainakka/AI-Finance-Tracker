@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, FormEvent } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import type { FormEvent } from "react";
 import { useUser } from "@clerk/clerk-react";
 import ReactMarkdown from 'react-markdown';
 

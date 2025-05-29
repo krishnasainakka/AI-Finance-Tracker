@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { format } from "date-fns";
 
-import { Upload } from "lucide-react"; // Optional: Icon for upload button
+// import { Upload } from "lucide-react"; // Optional: Icon for upload button
 
 
 interface AddExpenseProps {

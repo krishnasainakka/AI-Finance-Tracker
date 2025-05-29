@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import type {ReactNode} from 'react';
 import Header from './Dashboard/Header';
 import SideNavbar from './Dashboard/SideNavbar';
 import SideNavbarMobile from './Dashboard/SideNavbarMobile'; // ✅ import mobile drawer
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false); // ✅ control drawer
 
   return (

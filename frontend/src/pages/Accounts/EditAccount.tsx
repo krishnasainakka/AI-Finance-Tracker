@@ -14,20 +14,31 @@ import { useUser} from '@clerk/clerk-react';
 import { Button } from '@/components/ui/button';
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { motion } from "framer-motion"
 import { PenBox } from 'lucide-react';
 
 
-const EditAccount = ({accountInfo, refreshAccounts}) => {
+interface Account {
+  _id: string;
+  accountName: string;
+  balance: number;
+}
+type EditAccountProps = {
+  accountInfo: Account;
+  refreshAccounts: () => void;
+};
+
+
+
+const EditAccount: React.FC<EditAccountProps>= ({accountInfo, refreshAccounts}) => {
   const { user } = useUser();
 
-  const [accountName,setAccountName] = useState();
-  const [balance,setBalance] = useState();
+  const [accountName,setAccountName] = useState<string>('');
+  const [balance,setBalance] = useState<number>(0);
 
   useEffect(()=>{
     if(accountInfo){
         setAccountName(accountInfo?.accountName);
-        setBalance(accountInfo?.balance)
+        setBalance(accountInfo?.balance);
     }
   },[accountInfo])
 
@@ -85,7 +96,7 @@ const EditAccount = ({accountInfo, refreshAccounts}) => {
                   <Input placeholder='e.g. 10000Rs'
                   type='number'
                   defaultValue={accountInfo?.balance}
-                  onChange={(e)=>setBalance(e.target.value)}/>
+                  onChange={(e)=>setBalance(Number(e.target.value))}/>
                 </div>                
               </div>
               

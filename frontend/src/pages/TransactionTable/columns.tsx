@@ -2,7 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react"; // for sorting icon
 import { Button } from "@/components/ui/button"; // from shadcn/ui
 import { MoreHorizontal, Pencil, Trash } from "lucide-react"
-import { Checkbox } from "@/components/ui/checkbox"
+// import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "sonner";
 import { ArrowUpCircle, ArrowDownCircle } from "lucide-react"; 
 
@@ -11,7 +11,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
+  // DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
