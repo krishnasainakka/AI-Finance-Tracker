@@ -35,20 +35,24 @@ const Header: React.FC<HeaderProps> = ({ setSidebarOpen }) => {
         </button>
         {isSignedIn && (
           <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <button className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-xl shadow hover:from-purple-600 hover:to-pink-600 transition text-sm sm:text-base">
-                <ScanLine size={18} />
-                <span>AI Receipt Scanner</span>
-              </button>
-            </DialogTrigger>
-            <DialogContent className="z-[1000] sm:max-w-xl w-full p-6 bg-white shadow-2xl">
-              <DialogHeader>
-                <DialogTitle>Add New Expense</DialogTitle>
-                <DialogClose className="text-gray-500 hover:text-gray-700" />
-              </DialogHeader>
-              <AIAddExpense userId={user?.id} refreshData={refreshTransactions} />
-            </DialogContent>
-          </Dialog>
+  <DialogTrigger asChild>
+    <button className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-xl shadow hover:from-purple-600 hover:to-pink-600 transition text-sm sm:text-base">
+      <ScanLine size={18} />
+      <span>AI Receipt Scanner</span>
+    </button>
+  </DialogTrigger>
+  <DialogContent
+    className="z-[1000] sm:max-w-xl w-full p-6 bg-white shadow-2xl"
+    style={{ maxHeight: '80vh', overflowY: 'auto' }}
+  >
+    <DialogHeader>
+      <DialogTitle>Add New Expense</DialogTitle>
+      <DialogClose className="text-gray-500 hover:text-gray-700" />
+    </DialogHeader>
+    <AIAddExpense userId={user?.id} refreshData={refreshTransactions} />
+  </DialogContent>
+</Dialog>
+
         )}
       </div>
       <UserButton afterSignOutUrl="/" />

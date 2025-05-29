@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { format } from "date-fns";
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 
 // import { Upload } from "lucide-react"; // Optional: Icon for upload button
 
@@ -40,7 +39,7 @@ const AddExpenseAI: React.FC<AddExpenseProps> = ({ userId, refreshData }) => {
   const [amount, setAmount] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [budgetId, setBudgetId] = useState<string>("");
-  const [date, setDate] = useState<Date | undefined>();
+  const [date, setDate] = useState<Date | undefined>(new Date);
   const [accountId, setAccountId] = useState<string>("");
   const [accountName, setAccountName] = useState<string>("");
   const [isRecurring, setIsRecurring] = useState<boolean>(false);
@@ -279,25 +278,19 @@ const AddExpenseAI: React.FC<AddExpenseProps> = ({ userId, refreshData }) => {
     </div>
 
     {/* Date Picker */}
-    <div className="mt-4 relative z-50">
-      <Label className="text-black font-medium mb-1 block">Date</Label>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button variant="outline" className="w-full justify-start text-left font-normal">
-            {date ? format(date, "PPP") : <span>Pick a date</span>}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent
-          side="bottom"
-          align="start"
-          sideOffset={8}
-          className="w-auto p-0 z-[1600]"
-          forceMount
-        >
-          <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
-        </PopoverContent>
-      </Popover>
-    </div>
+    <div className="mt-4">
+          <Label className="text-black font-medium mb-1 block">Date</Label>
+          <DayPickerInput
+            value={date}
+            onDayChange={setDate}
+            placeholder="Pick a date"
+            format="PPP"
+            inputProps={{
+              className:
+                "w-full border border-gray-300 rounded-md py-2 px-3 text-left font-normal",
+            }}
+          />
+        </div>
 
     {/* Recurring Toggle */}
     <div className="flex items-center justify-between mt-4">
