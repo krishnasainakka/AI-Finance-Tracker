@@ -23,9 +23,13 @@ connectToMongo();
 // }));
 
 app.use(cors({
-  origin: '*',
+  origin: [
+    'https://ai-finance-tracker-frontend.vercel.app',
+    'http://localhost:5173'
+  ],
   credentials: true,
 }));
+
 
 app.use(express.json()) 
 

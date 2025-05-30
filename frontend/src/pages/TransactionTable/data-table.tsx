@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { CategoryFilter } from "./CategoryFilter"
 import { AccountNameFilter } from "./AccountNameFilter";
 import { RecurringFilter } from "./RecurringFilter";
