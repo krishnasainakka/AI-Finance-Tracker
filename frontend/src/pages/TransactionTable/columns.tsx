@@ -28,6 +28,8 @@ type IncomeItem = {
   amount: number;
   category: string;
   accountName: string; 
+  recurring: boolean;
+  recurringPeriod?: "Daily" | "Weekly" | "Monthly" | "Yearly"; 
   createdBy: string;
   createdAt?: string;
 };
@@ -40,6 +42,7 @@ interface Expense {
   category: string;
   accountName: string;
   recurring: boolean;
+  recurringPeriod?: "Daily" | "Weekly" | "Monthly" | "Yearly"; 
   createdBy: string;
 }
 

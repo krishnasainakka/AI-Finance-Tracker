@@ -2,7 +2,7 @@ import {
   // SignedIn,
   SignedOut,
   SignInButton,
-  SignUpButton,
+  // SignUpButton,
   useUser,
   useAuth,
 } from '@clerk/clerk-react';
