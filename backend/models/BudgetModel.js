@@ -5,7 +5,8 @@ const BudgetSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        maxlength: [20, 'Budget name cannot exceed 12 characters']   
+        maxlength: [20, 'Budget name cannot exceed 12 characters'],
+        unique: true  
     },
     amount: {
         type: Number,
@@ -31,7 +32,9 @@ const BudgetSchema = new mongoose.Schema({
         type: String, // Clerk user ID
         required: true,
         trim: true
-    }
+    },
+    isDefault: { type: Boolean, default: false, unique: true }, // new field
+
 }, { timestamps: true });
 
 // Add index

@@ -6,14 +6,8 @@ import { MoreHorizontal, Pencil, Trash } from "lucide-react"
 import { toast } from "sonner";
 import { ArrowUpCircle, ArrowDownCircle } from "lucide-react"; 
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  // DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+
 
 export type Transaction = {
   _id: string;
@@ -198,25 +192,42 @@ export const getColumns = (refreshData: () => void): ColumnDef<Transaction>[] =>
 
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={handleEdit}>
-              <Pencil className="mr-2 h-4 w-4" />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleDelete(transaction, transaction.type as "income" | "expense")}>
-              <Trash className="mr-2 h-4 w-4 text-red-500" />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <button
+          aria-label="Open menu"
+          className="h-8 w-8 p-0 bg-transparent border-none rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500"
+        >
+          <MoreHorizontal className="h-4 w-4" />
+        </button>
+      </DropdownMenu.Trigger>
+
+      <DropdownMenu.Content
+        align="end"
+        sideOffset={5}
+        className="min-w-[160px] rounded-md bg-white p-2 shadow-lg border border-gray-200"
+      >
+        <DropdownMenu.Label className="px-2 py-1 text-sm font-semibold text-gray-700">
+          Actions
+        </DropdownMenu.Label>
+
+        <DropdownMenu.Item
+          onClick={handleEdit}
+          className="flex items-center px-2 py-2 rounded cursor-pointer text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+        >
+          <Pencil className="mr-2 h-4 w-4" />
+          Edit
+        </DropdownMenu.Item>
+
+        <DropdownMenu.Item
+          onClick={() => handleDelete(transaction, transaction.type === 'income' ? 'income' : 'expense')}
+          className="flex items-center px-2 py-2 rounded cursor-pointer text-red-600 hover:bg-red-100 focus:outline-none focus:bg-red-100"
+        >
+          <Trash className="mr-2 h-4 w-4" />
+          Delete
+        </DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
       )
     },
   },

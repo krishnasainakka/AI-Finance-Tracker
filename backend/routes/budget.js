@@ -5,6 +5,30 @@ import mongoose from 'mongoose';
 
 const router = express.Router();
 
+
+const ensureOthersBudget = async (userId) => {
+  const othersExists = await Budget.findOne({
+    createdBy: userId,
+    budgetname: 'Others',
+    isDefault: true
+  });
+
+  if (!othersExists) {
+    const othersBudget = new Budget({
+      budgetname: "Others",
+      amount: 0,
+      icon: "🗂️", // or another default icon
+      createdBy: userId,
+      totalSpent: 0,
+      expenseCount: 0,
+      isDefault: true,
+    });
+
+    await othersBudget.save();
+    console.log('✅ Others budget created for user:', userId);
+  }
+};
+
 // Create a new budget
 router.post('/addBudget', async (req, res) => {
   try {
@@ -16,9 +40,18 @@ router.post('/addBudget', async (req, res) => {
 
     if (amount < 0) {
       return res.status(400).json({ message: 'Amount must be non-negative.' });
+    }    
+
+    // 🚫 Prevent duplicate budget names for the same user
+    const existingBudget = await Budget.findOne({
+      createdBy,
+      budgetname: { $regex: new RegExp(`^${budgetname}$`, 'i') }  // case-insensitive match
+    });
+
+    if (existingBudget) {
+      return res.status(409).json({ message: 'A budget with this name already exists.' });
     }
 
-    // Create new budget with amountSpent and numberOfExpenses defaulting to 0
     const newBudget = new Budget({
       budgetname,
       amount,
@@ -45,6 +78,9 @@ router.get('/getBudgets/:id', async (req, res) => {
       return res.status(400).json({ message: 'User ID is required' });
     }
 
+    // Ensure 'Others' budget exists before fetching budgets
+    await ensureOthersBudget(userId);
+
     const budgets = await Budget.find({ createdBy: userId }).sort({ createdAt: -1 });
 
     res.status(200).json(budgets);
@@ -60,29 +96,62 @@ router.put('/updateBudget/:userId/:budgetId', async (req, res) => {
   const { budgetname, amount, icon } = req.body;
 
   try {
-    if (!budgetname || amount == null || !icon) {
-      return res.status(400).json({ message: 'Missing required fields.' });
+    if (amount == null) {
+      return res.status(400).json({ message: 'Amount is required.' });
     }
 
     if (amount < 0) {
       return res.status(400).json({ message: 'Amount must be non-negative.' });
     }
 
-    const updatedBudget = await Budget.findOneAndUpdate(
-      { _id: budgetId, createdBy: userId },
-      {
-        budgetname,
-        amount,
-        icon,
-      },
-      { new: true }
-    );
-
-    if (!updatedBudget) {
+    const budget = await Budget.findOne({ _id: budgetId, createdBy: userId });
+    if (!budget) {
       return res.status(404).json({ message: 'Budget not found or unauthorized.' });
     }
 
-    res.status(200).json(updatedBudget);
+    if (budget.isDefault || budget.budgetname.trim().toLowerCase() === 'others') {
+      // Only allow amount update for 'Others' budget
+      if (
+        budgetname &&
+        budgetname.trim().toLowerCase() !== budget.budgetname.trim().toLowerCase()
+      ) {
+        return res.status(403).json({ message: "You cannot modify the name of the 'Others' budget." });
+      }
+
+      if (
+        icon &&
+        icon.trim().toLowerCase() !== budget.icon.trim().toLowerCase()
+      ) {
+        return res.status(403).json({ message: "You cannot modify the icon of the 'Others' budget." });
+      }
+
+      budget.amount = amount;
+      await budget.save();
+      return res.status(200).json(budget);
+    } else {
+      // Allow full update for other budgets
+      if (!budgetname || !icon) {
+        return res.status(400).json({ message: 'budgetname and icon are required for this budget.' });
+      }
+
+      // Check for duplicates
+      const duplicate = await Budget.findOne({
+        _id: { $ne: budgetId },
+        createdBy: userId,
+        budgetname: { $regex: new RegExp(`^${budgetname.trim()}$`, 'i') },
+      });
+
+      if (duplicate) {
+        return res.status(409).json({ message: 'A budget with this name already exists.' });
+      }
+
+      budget.budgetname = budgetname.trim();
+      budget.amount = amount;
+      budget.icon = icon;
+      await budget.save();
+
+      return res.status(200).json(budget);
+    }
   } catch (error) {
     console.error('Error updating budget:', error);
     res.status(500).json({ message: 'Internal server error' });
@@ -98,6 +167,11 @@ router.delete('/deleteBudget/:userId/:budgetId', async (req, res) => {
     const budget = await Budget.findOne({ _id: budgetId, createdBy: userId });
     if (!budget) {
       return res.status(404).json({ message: "Budget not found or unauthorized access" });
+    }
+
+    // Prevent deletion of the 'Others' budget
+    if (budget.isDefault) {
+      return res.status(403).json({ message: "You cannot delete the 'Others' budget." });
     }
 
     // Delete all associated expenses
@@ -121,6 +195,13 @@ router.get('/budgetSummary/:userId', async (req, res) => {
   const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
   try {
+    // Ensure 'Others' budget exists before fetching budgets
+    // console.log("Checking for Others...");
+
+    await ensureOthersBudget(userId);
+    // console.log("Check complete. Fetching summary...");
+
+
     const summary = await Budget.aggregate([
       { $match: { createdBy: userId } },
       {
@@ -164,7 +245,7 @@ router.get('/budgetSummary/:userId', async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
-
+ 
 
 // Get a budget summary(totalSpent and count including budgets) for a specific budget and user
 router.get('/budgetSummary/:userId/:budgetId', async (req, res) => {
@@ -175,6 +256,9 @@ router.get('/budgetSummary/:userId/:budgetId', async (req, res) => {
   const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
   try {
+    // Ensure 'Others' budget exists before fetching budgets
+    await ensureOthersBudget(userId);
+
     const summary = await Budget.aggregate([
       {
         $match: {

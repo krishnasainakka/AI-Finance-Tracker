@@ -71,6 +71,7 @@ router.post('/addexpense', async (req, res) => {
       type: 'expense'
     });
 
+    console.log(req.body)
     await expense.save();
 
     const account = await Account.findById(accountId);

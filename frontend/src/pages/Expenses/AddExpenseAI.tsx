@@ -281,16 +281,43 @@ const AddExpenseAI: React.FC<AddExpenseProps> = ({ userId, refreshData }) => {
     </div>
 
     {/* Date Picker */}
-    <div className="mt-4 relative">
+    <div className="mt-4 relative w-full max-w-xs">
           <label className="text-black font-medium mb-1 block">Date</label>
-          <input
-            type="text"
-            readOnly
-            value={date ? format(date, "PPP") : ""}
-            onClick={() => setShowPicker((prev) => !prev)}
-            placeholder="Pick a date"
-            className="w-full border border-gray-300 rounded-md py-2 px-3 text-left font-normal cursor-pointer"
-          />
+          <div className="relative">
+            <input
+              type="text"
+              readOnly
+              value={date ? format(date, "PPP") : ""}
+              onClick={() => setShowPicker((prev) => !prev)}
+              placeholder="Pick a date"
+              className="w-full border border-gray-300 rounded-md py-2 pr-10 pl-3 text-left font-normal cursor-pointer"
+            />
+            {/* Calendar Icon */}
+            <svg
+              onClick={() => setShowPicker((prev) => !prev)}
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 cursor-pointer"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <rect
+                x="3"
+                y="4"
+                width="18"
+                height="18"
+                rx="2"
+                ry="2"
+                stroke="currentColor"
+                strokeWidth={2}
+                fill="none"
+              />
+              <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" strokeWidth={2} />
+              <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" strokeWidth={2} />
+              <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" strokeWidth={2} />
+            </svg>
+          </div>
           {showPicker && (
             <div className="absolute z-50 bg-white shadow-lg mt-2 rounded-md">
               <DayPicker
@@ -320,10 +347,10 @@ const AddExpenseAI: React.FC<AddExpenseProps> = ({ userId, refreshData }) => {
             <SelectValue placeholder="Select Period" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="daily">Daily</SelectItem>
-            <SelectItem value="weekly">Weekly</SelectItem>
-            <SelectItem value="monthly">Monthly</SelectItem>
-            <SelectItem value="yearly">Yearly</SelectItem>
+            <SelectItem value="Daily">Daily</SelectItem>
+            <SelectItem value="Weekly">Weekly</SelectItem>
+            <SelectItem value="Monthly">Monthly</SelectItem>
+            <SelectItem value="Yearly">Yearly</SelectItem>
           </SelectContent>
         </Select>
       </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CategoryFilter } from "./CategoryFilter"
 import { AccountNameFilter } from "./AccountNameFilter";
 import { RecurringFilter } from "./RecurringFilter";
@@ -24,15 +24,23 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+// import {
+//   DropdownMenu,
+//   DropdownMenuCheckboxItem,
+//   DropdownMenuContent,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu"
+
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+const {
+  Root: DropdownMenuRoot,
+  Trigger: DropdownMenuTrigger,
+  Content: DropdownMenuContent,
+  // CheckboxItem: DropdownMenuCheckboxItem,
+} = DropdownMenuPrimitive;
 
 type Account = {
   _id: string;
@@ -102,6 +110,8 @@ export function DataTable<TData, TValue>({
         }
         className="md:max-w-sm"
       />
+      
+
 
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-2">
@@ -117,28 +127,53 @@ export function DataTable<TData, TValue>({
       </div>
 
       {/* Column Toggle */}
-      <DropdownMenu>
+      <DropdownMenuRoot>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="ml-auto">
+          <button
+            type="button"
+            className="ml-auto px-3 py-1 border rounded-md outline-none focus:ring"
+          >
             Columns
-          </Button>
+          </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+
+        <DropdownMenuContent
+          align="end"
+          sideOffset={5}
+          style={{
+            backgroundColor: "white",
+            border: "1px solid rgba(0,0,0,0.15)",
+            borderRadius: 6,
+            padding: 10,
+            minWidth: 200,
+            boxShadow: "rgba(0,0,0,0.2) 0px 10px 15px -3px",
+            zIndex: 1000,
+          }}
+        >
           {table
             .getAllColumns()
             .filter((col) => col.getCanHide())
-            .map((col) => (
-              <DropdownMenuCheckboxItem
-                key={col.id}
-                className="capitalize"
-                checked={col.getIsVisible()}
-                onCheckedChange={(value) => col.toggleVisibility(!!value)}
-              >
-                {col.id}
-              </DropdownMenuCheckboxItem>
-            ))}
+            .map((col) => {
+              const isVisible = col.getIsVisible();
+              return (
+                <div
+                  key={col.id}
+                  className="flex items-center gap-2 px-2 py-1 cursor-pointer hover:bg-gray-100 rounded"
+                  onClick={() => col.toggleVisibility(!isVisible)}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isVisible}
+                    onChange={() => {}}
+                    className="accent-blue-600 cursor-pointer"
+                    readOnly
+                  />
+                  <span className="capitalize text-sm">{col.id}</span>
+                </div>
+              );
+            })}
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenuRoot>
     </div>
 
     {/* Selection Info */}

@@ -1,4 +1,4 @@
-// import type { Transaction} from "./columns"
+import type { Transaction} from "./columns"
 
 import { getColumns } from "./columns"
 import { DataTable } from "./data-table"

@@ -12,7 +12,7 @@ const BudgetList = () => {
       const userId = user?.id;
       const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/budget/budgetSummary/${userId}`);
       const data = await res.json(); 
-      console.log(data);
+      console.log("data: ",data);
       setBudgetsList(data);
     } catch (err) {
       console.error("Error fetching budgets:", err);
@@ -20,6 +20,7 @@ const BudgetList = () => {
   };
 
   useEffect(() => {
+      // console.log("User object in BudgetList:", user); // ✅ Debug log
     if (user) {
       getBudgetList();
     }
@@ -34,19 +35,12 @@ const BudgetList = () => {
       </div>
 
       {/* Budgets List */}
-      {budgetsList?.length > 0
-        ? budgetsList.map((budget, index) => (
-            <div className="w-full" key={index}>
-              <BudgetItem budget={budget} />
-            </div>
-          ))
-        : // Loading placeholders
-          [1, 2, 3, 4, 5].map((index) => (
-            <div
-              key={index}
-              className="w-full bg-slate-200 rounded-lg h-[150px] animate-pulse"
-            ></div>
-          ))}
+      {/* {budgetsList?.length > 0 && */}
+        {budgetsList.map((budget, index) => (
+          <div className="w-full" key={index}>
+            <BudgetItem budget={budget} />
+          </div>
+        ))}
     </div>
   </div>
 );
