@@ -159,7 +159,7 @@ const AddExpenseAI: React.FC<AddExpenseProps> = ({ userId, refreshData }) => {
         setCategory("");
         setAccountId("");
         setAccountName("");
-        setDate(undefined);
+        setDate(new Date);
         setIsRecurring(false);
         setRecurringPeriod("");
       } else {
@@ -243,7 +243,7 @@ const AddExpenseAI: React.FC<AddExpenseProps> = ({ userId, refreshData }) => {
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select Category" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="z-5000">
             {budgets.map((budget) => (
               <SelectItem key={budget._id} value={budget._id}>
                 {budget.budgetname}
@@ -269,7 +269,7 @@ const AddExpenseAI: React.FC<AddExpenseProps> = ({ userId, refreshData }) => {
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select Account" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="z-5000">
             {accounts.map((acc) => (
               <SelectItem key={acc._id} value={acc._id}>
                 {acc.accountName}
@@ -346,7 +346,7 @@ const AddExpenseAI: React.FC<AddExpenseProps> = ({ userId, refreshData }) => {
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select Period" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="z-5000">
             <SelectItem value="Daily">Daily</SelectItem>
             <SelectItem value="Weekly">Weekly</SelectItem>
             <SelectItem value="Monthly">Monthly</SelectItem>

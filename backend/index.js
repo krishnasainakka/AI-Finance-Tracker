@@ -7,8 +7,9 @@ import expense from './routes/expense.js';
 import transaction from './routes/income_expense.js';
 import ai from './routes/budgetAI.js';
 import chat from './routes/chatMessage.js';
+import cronRoutes from './routes/cronRoutes.js';
 
-import './routes/recurringExpensesCron.js'; // just import to start the cron job
+// import './routes/recurringExpensesCron.js'; // just import to start the cron job
 import cors from 'cors';
 
 
@@ -16,11 +17,6 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 connectToMongo();
-
-// app.use(cors({
-//   origin: 'http://localhost:5173',
-//   credentials: true,
-// }));
 
 app.use(cors({
   origin: [
@@ -41,6 +37,8 @@ app.use('/api/account', account)
 app.use('/api/transactions', transaction)
 app.use('/api/ai',ai)
 app.use('/api/chat',chat);
+app.use('/api/cron', cronRoutes);
+
 
 app.get('/',(req,res)=>{
     res.send("Hello World")

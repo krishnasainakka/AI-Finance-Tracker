@@ -35,7 +35,7 @@ const Budget = () => {
   return (
     <>
       <motion.div className='p-5' initial="hidden" animate="show" variants={fadeUp}>
-        <h2 className='font-bold text-2xl'>Budget Overview</h2>
+        <h2 className='font-bold text-2xl'>Monthly Budget Overview</h2>
         <CardInfo budgetsList={budgetsList} />
       </motion.div>
 

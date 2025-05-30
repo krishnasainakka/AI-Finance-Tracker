@@ -85,7 +85,7 @@ const AddIncome: React.FC<AddIncomeProps> = ({ userId, incomeTypes, refreshTrans
         setCategory("");
         setAccountId("");
         setAccountName("");
-        setDate(undefined);
+        setDate(new Date);
         setIsRecurring(false);
         setRecurringPeriod("");
       } else {

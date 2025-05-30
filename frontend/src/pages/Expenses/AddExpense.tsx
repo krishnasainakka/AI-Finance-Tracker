@@ -105,7 +105,7 @@ const AddExpense: React.FC<AddExpenseProps> = ({ budgetId, userId, refreshData }
         // setCategory("");
         setAccountId("");
         setAccountName("");
-        setDate(undefined);
+        setDate(new Date);
         setIsRecurring(false);
         setRecurringPeriod("");
       } else {

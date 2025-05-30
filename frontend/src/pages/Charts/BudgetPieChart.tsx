@@ -66,7 +66,7 @@ export function BudgetPieChart({ budgetsList }: BudgetPieChartProps) {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle className="text-base">Spending Distribution</CardTitle>
+        <CardTitle className="text-base">Monthly Spending Distribution ({new Date().toLocaleString('default', { month: 'long' })})</CardTitle>
         <CardDescription className="text-sm">Actual Expenses</CardDescription>
       </CardHeader>
 

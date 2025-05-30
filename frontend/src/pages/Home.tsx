@@ -107,11 +107,11 @@ const Home = () => {
     <img src="/logo.png" alt="Logo" width={160} height={50} />
     <div className="space-x-4">
       <SignedOut>
-        <SignUpButton mode="modal">
+        {/* <SignUpButton mode="modal">
           <Button variant="outline" className="transition-transform duration-300 hover:scale-105 hover:bg-blue-50">
             Sign Up
           </Button>
-        </SignUpButton>
+        </SignUpButton> */}
         <SignInButton mode="modal">
           <Button variant="customBlue" className="transition-transform duration-300 hover:scale-105 hover:brightness-110">
             Sign In
@@ -150,7 +150,7 @@ const Home = () => {
   </section>
 
   {/* Features */}
-  <section className="py-20 px-4">
+  <section id='features' className="py-20 px-4">
     <h2 className="text-3xl font-bold text-center mb-12">Features That Make a Difference</h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {featuresData.map((feature, index) => (
@@ -160,7 +160,7 @@ const Home = () => {
   </section>
 
   {/* How It Works */}
-  <section className="py-20 px-4 bg-gray-50">
+  <section id='how-it-works' className="py-20 px-4 bg-gray-50">
     <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {howItWorksData.map((step, index) => (
@@ -206,9 +206,11 @@ const Home = () => {
     <div className="max-w-4xl mx-auto text-center">
       <h2 className="text-3xl font-bold mb-6">Ready to Take Control of Your Finances?</h2>
       <p className="text-xl text-gray-700 mb-8">Join thousands of users who are already managing their money smarter with AI.</p>
-      <Button size="lg" className="px-12 py-6 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-indigo-700 hover:to-blue-600 text-white font-semibold shadow-lg transition-transform duration-300 hover:scale-105">
-        Get Started for Free
-      </Button>
+      <SignInButton mode="modal">
+        <Button size="lg" className="px-12 py-6 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-indigo-700 hover:to-blue-600 text-white font-semibold shadow-lg transition-transform duration-300 hover:scale-105">
+          Get Started for Free
+        </Button>
+      </SignInButton>
     </div>
   </section>
 
@@ -223,22 +225,26 @@ const Home = () => {
         <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
         <ul className="space-y-1">
           <li><a href="#" className="hover:underline text-gray-300">Home</a></li>
-          <li><a href="#" className="hover:underline text-gray-300">Features</a></li>
-          <li><a href="#" className="hover:underline text-gray-300">How It Works</a></li>
+          <li><a href="#features" className="hover:underline text-gray-300">Features</a></li>
+          <li><a href="#how-it-works" className="hover:underline text-gray-300">How It Works</a></li>
         </ul>
       </div>
       <div>
         <h4 className="text-lg font-semibold mb-2">Connect</h4>
         <ul className="space-y-1">
-          <li><a href="mailto:support@aifinance.com" className="hover:underline text-gray-300">support@aifinance.com</a></li>
+          <li><a href="" className="hover:underline text-gray-300">support@aifinance.com</a></li>
           <li><a href="https://twitter.com" target="_blank" className="hover:underline text-gray-300">Twitter</a></li>
           <li><a href="https://linkedin.com" target="_blank" className="hover:underline text-gray-300">LinkedIn</a></li>
         </ul>
       </div>
     </div>
-    <div className="text-center text-sm text-gray-400 mt-6 border-t border-gray-700 pt-4">
-      &copy; {new Date().getFullYear()} AI Finance Tracker. All rights reserved.
+    <div className="text-center text-sm text-gray-400 mt-6 border-t border-gray-700 pt-4 space-y-1">
+      <div>&copy; {new Date().getFullYear()} AI Finance Tracker. All rights reserved.</div>
+      <div>
+        Created by <a href="https://github.com/krishnasainakka" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Krishna Sai</a>
+      </div>
     </div>
+
   </footer>
 </div>
 
