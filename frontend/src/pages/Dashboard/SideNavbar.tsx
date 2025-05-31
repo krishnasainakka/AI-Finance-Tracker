@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { LayoutGrid, PiggyBank, ReceiptText, Bot, CreditCard, DollarSign } from 'lucide-react';
+import { LayoutGrid, PiggyBank, Bot, CreditCard, DollarSign } from 'lucide-react';
 import { UserButton } from '@clerk/clerk-react';
 import { Link, useLocation } from 'react-router-dom';
 
