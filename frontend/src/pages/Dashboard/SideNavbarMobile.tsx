@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { LayoutGrid, PiggyBank, ReceiptText } from 'lucide-react';
+import { Bot, CreditCard, DollarSign, LayoutGrid, PiggyBank } from 'lucide-react';
 import { UserButton } from '@clerk/clerk-react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -13,9 +13,9 @@ const SideNavbarMobile: React.FC<SideNavbarMobileProps> = ({ open, setOpen }) =>
   const menuList = [
     { id: 1, name: 'Dashboard', icon: LayoutGrid, path: '/dashboard' },
     { id: 2, name: 'Budget & Expenses', icon: PiggyBank, path: '/dashboard/budget' },
-    { id: 3, name: 'Incomes', icon: ReceiptText, path: '/dashboard/incomes' },
-    { id: 4, name: 'Accounts', icon: ReceiptText, path: '/dashboard/accounts' },
-    { id: 5, name: 'Finance Chatbot', icon: ReceiptText, path: '/dashboard/chatbot' },
+    { id: 3, name: 'Incomes', icon: DollarSign, path: '/dashboard/incomes' },
+    { id: 4, name: 'Accounts', icon: CreditCard, path: '/dashboard/accounts' },
+    { id: 5, name: 'Finance Chatbot', icon: Bot, path: '/dashboard/chatbot' },
   ];
 
   const location = useLocation();
