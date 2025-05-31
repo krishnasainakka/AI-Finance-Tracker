@@ -70,7 +70,7 @@ router.post("/monthly-summary", async (req, res) => {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    console.log(text)
+    // console.log(text)
 
     if (!text) {
       return res.status(500).json({ error: "No summary generated" });

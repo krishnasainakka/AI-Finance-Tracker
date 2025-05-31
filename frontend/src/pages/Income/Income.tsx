@@ -84,7 +84,7 @@ const Income: React.FC = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.4 }}
     >
-      <h2 className="font-bold text-lg mb-4">Latest Incomes</h2>
+      <h2 className="font-bold text-lg mb-[-15px]">Income History</h2>
       <DemoPage
         expenseList={incomeList}
         accountList={accountsData}
