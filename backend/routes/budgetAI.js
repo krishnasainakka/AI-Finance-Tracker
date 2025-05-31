@@ -31,9 +31,9 @@ router.post("/monthly-summary", async (req, res) => {
       - "amount" (number)
       - "date" (string, format YYYY-MM-DD)
 
-  2. "topTransactions": Array of the top 5 largest transactions (income or expense), sorted by amount (highest first).
+  2. "latestExpenses ": Array of the top 5 largest expense, sorted by amount (highest first).
     - Each item must include:
-      - "type" (string): either "income" or "expense"
+      - "type" (string): "expense"
       - "category" (string)
       - "amount" (number)
       - "date" (string, format YYYY-MM-DD)
@@ -70,7 +70,7 @@ router.post("/monthly-summary", async (req, res) => {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    // console.log(text)
+    console.log(text)
 
     if (!text) {
       return res.status(500).json({ error: "No summary generated" });

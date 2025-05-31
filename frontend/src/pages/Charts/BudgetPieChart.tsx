@@ -66,7 +66,7 @@ export function BudgetPieChart({ budgetsList }: BudgetPieChartProps) {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle className="text-base">Monthly Spending Distribution ({new Date().toLocaleString('default', { month: 'long' })})</CardTitle>
+        <CardTitle className="text-base">Category-wise Spending – ({new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}) </CardTitle>
         <CardDescription className="text-sm">Actual Expenses</CardDescription>
       </CardHeader>
 
@@ -102,8 +102,9 @@ export function BudgetPieChart({ budgetsList }: BudgetPieChartProps) {
               ></div>
               <span className="font-medium">{item.budgetname}</span>
               <span className="text-muted-foreground ml-2">
-                {formatCurrency(item.totalSpentThisMonth)} /{" "}
-                {formatCurrency(item.amount)}
+                {formatCurrency(item.totalSpentThisMonth)} {" ("}
+                {((item.totalSpentThisMonth / totalSpent) * 100).toFixed(1)} {"%)"}
+                {/* {formatCurrency(item.amount)} */}
               </span>
             </div>
           ))}

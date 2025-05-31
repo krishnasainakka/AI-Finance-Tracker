@@ -12,7 +12,6 @@ import {
 import AIAddExpense from '../Expenses/AddExpenseAI';
 import BudgetContext from '@/context/BudgetContext';
 
-
 interface HeaderProps {
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -28,17 +27,19 @@ const Header: React.FC<HeaderProps> = ({ setSidebarOpen }) => {
   const { refreshTransactions } = ctx;
 
   return (
-    <div className='p-5 shadow-sm border-b flex justify-between items-center bg-white'>
-      <div className="flex items-center gap-4">
+    <div className='p-4 sm:p-5 shadow-sm border-b bg-white relative flex items-center justify-between'>
+      {/* Left side: Menu + AI Scanner */}
+      <div className="flex items-center gap-2 sm:gap-4">
         <button className="md:hidden" onClick={() => setSidebarOpen(true)}>
           <Menu size={24} />
         </button>
+
         {isSignedIn && (
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <button className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-xl shadow hover:from-purple-600 hover:to-pink-600 transition text-sm sm:text-base">
-                <ScanLine size={18} />
-                <span>AI Receipt Scanner</span>
+              <button className="flex flex-col items-center gap-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-lg shadow hover:from-purple-600 hover:to-pink-600 transition text-xs max-w-[50px] sm:max-w-[120px] text-center whitespace-normal leading-tight">
+                <ScanLine size={16} />
+                <span className="text-[10px] sm:text-xs">AI Receipt Scanner</span>
               </button>
             </DialogTrigger>
             <DialogContent
@@ -52,10 +53,19 @@ const Header: React.FC<HeaderProps> = ({ setSidebarOpen }) => {
               <AIAddExpense userId={user?.id} refreshData={refreshTransactions} />
             </DialogContent>
           </Dialog>
-
         )}
       </div>
-      <UserButton afterSignOutUrl="/" />
+
+      {/* Centered title */}
+      <h1 className="absolute left-1/2 -translate-x-1/2 text-sm sm:text-xl md:text-2xl font-semibold text-gray-800 tracking-wide text-center">
+        Personal Budget Tracker
+      </h1>
+
+
+      {/* Right side: User button */}
+      <div className="ml-auto">
+        <UserButton afterSignOutUrl="/" />
+      </div>
     </div>
   );
 };

@@ -40,7 +40,7 @@ type SpendingPatterns = {
 
 type FinancialSummary = {
   incomes: Transaction[];
-  topTransactions: Transaction[];
+  latestExpenses: Transaction[];
   summary: Summary;
   spendingPatterns: SpendingPatterns;
   suggestions: string[];
@@ -188,7 +188,7 @@ const MonthlySummary = () => {
 
           {/* Top Transactions */}
           <section>
-            <h3 className="text-xl font-semibold text-blue-700 mb-4">Top Transactions</h3>
+            <h3 className="text-xl font-semibold text-blue-700 mb-4">Latest Expenses</h3>
             <table className="w-full text-left border border-gray-200 rounded-lg overflow-hidden">
               <thead className="bg-yellow-100">
                 <tr>
@@ -199,7 +199,7 @@ const MonthlySummary = () => {
                 </tr>
               </thead>
               <tbody>
-                {financialSummary.topTransactions.map((tx, idx) => (
+                {financialSummary.latestExpenses.map((tx, idx) => (
                   <tr key={idx} className="odd:bg-white even:bg-yellow-50">
                     <td className="p-3 border-b border-gray-200 capitalize">{tx.type}</td>
                     <td className="p-3 border-b border-gray-200">{tx.category || "-"}</td>
