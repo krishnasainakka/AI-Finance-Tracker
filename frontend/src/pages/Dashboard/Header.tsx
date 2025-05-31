@@ -57,9 +57,10 @@ const Header: React.FC<HeaderProps> = ({ setSidebarOpen }) => {
       </div>
 
       {/* Centered title */}
-      <h1 className="absolute left-1/2 -translate-x-1/2 text-sm sm:text-xl md:text-2xl font-semibold text-gray-800 tracking-wide text-center">
-        Personal Budget Tracker
-      </h1>
+      <h1 className="absolute left-1/2 -translate-x-1/2 text-sm sm:text-xl md:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-pink-600 tracking-wider font-serif text-center">
+  Personal Budget Tracker
+</h1>
+
 
 
       {/* Right side: User button */}
